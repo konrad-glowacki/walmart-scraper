@@ -12,8 +12,11 @@ class ScraperApp < Sinatra::Base
 
   post '/' do
     scraper = WalmartScraper.new(params[:url])
-    scraper.request_and_store!
 
-    erb :result, locals: { message: scraper.message }
+    if scraper.request_and_store
+      erb :success
+    else
+      erb :error, locals: { message: scraper.error }
+    end
   end
 end
