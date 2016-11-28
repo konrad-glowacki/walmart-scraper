@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe WalmartScraper do
+RSpec.describe Walmart::Scraper do
   subject { described_class.new(url) }
 
   describe '#request_and_store' do
@@ -12,11 +12,13 @@ RSpec.describe WalmartScraper do
       end
     end
 
-    context 'url is from walmart' do
-      let(:url) { 'http://www.walmart.com/ip/Ematic-9-Dual' }
+    context 'url is from walmart', vcr: true do
+      let(:url) { 'https://www.walmart.com/ip/Ematic-9-Dual-Screen-Portable-DVD-Player-with-Dual-DVD-Players-ED929D/28806789' }
 
       it 'returns true' do
-        expect(subject.request_and_store).to equal(true)
+        VCR.use_cassette('walmart-ematic-dual-screen') do
+          expect(subject.request_and_store).to equal(true)
+        end
       end
     end
   end

@@ -1,6 +1,12 @@
 ENV['RACK_ENV'] = 'test'
 
+require 'vcr'
 require './config/environment'
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/cassettes'
+  config.hook_into :webmock
+end
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods

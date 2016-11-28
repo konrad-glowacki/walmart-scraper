@@ -12,12 +12,12 @@ RSpec.describe ScraperApp do
     end
   end
 
-  describe 'POST /' do
+  describe 'POST /', vcr: true do
     it 'run scraper and returns success' do
       scraper = double('scraper')
-      some_url = 'http://www.walmart.com/some-url'
+      some_url = 'https://www.walmart.com/some-url'
 
-      expect(WalmartScraper).to receive(:new).with(some_url).and_return(scraper)
+      expect(Walmart::Scraper).to receive(:new).with(some_url).and_return(scraper)
       expect(scraper).to receive(:request_and_store).once.and_return(true)
 
       post '/', { url: some_url }

@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require './lib/walmart_scraper';
+require './lib/walmart/scraper';
 
 class ScraperApp < Sinatra::Base
   configure :production, :development do
@@ -11,7 +11,7 @@ class ScraperApp < Sinatra::Base
   end
 
   post '/' do
-    scraper = WalmartScraper.new(params[:url])
+    scraper = Walmart::Scraper.new(params[:url])
 
     if scraper.request_and_store
       erb :success
