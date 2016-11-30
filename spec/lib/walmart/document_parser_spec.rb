@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Walmart::Parser do
+RSpec.describe Walmart::DocumentParser do
   subject { described_class.new(content) }
 
   describe '#product_name' do

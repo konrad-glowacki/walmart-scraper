@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: roundforest
+  pool: 2
+  username: roundforest
+  password:
+
+test:
+  adapter: postgresql
+  encoding: utf8
+  database: roundforest_test
+  pool: 2
+  username: roundforest
+  password:

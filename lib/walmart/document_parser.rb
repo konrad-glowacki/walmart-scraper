@@ -1,5 +1,5 @@
 module Walmart
-  class Parser
+  class DocumentParser
     attr_reader :document
 
     def initialize(content)

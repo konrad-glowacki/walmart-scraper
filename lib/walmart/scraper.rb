@@ -1,6 +1,9 @@
 require 'uri'
 require 'net/http'
-require './lib/walmart/parser'
+
+require './models/product'
+require './lib/walmart/uri_parser'
+require './lib/walmart/document_parser'
 
 module Walmart
   class Scraper
@@ -14,9 +17,15 @@ module Walmart
       return false unless valid_host?
 
       response = Net::HTTP.get_response(uri)
-      parser = Walmart::Parser.new(response.body)
+      uri_parser = Walmart::UriParser.new(uri)
+      document_parser = Walmart::DocumentParser.new(response.body)
 
-      return true
+      product = Product.new(
+        name: document_parser.product_name, price: document_parser.product_price,
+        url: uri.to_s, external_id: uri_parser.external_id
+      )
+
+      return product.save
     end
 
     private

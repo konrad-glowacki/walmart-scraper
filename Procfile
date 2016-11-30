@@ -1,2 +1,2 @@
-db: mongod --config /usr/local/etc/mongod.conf
+db: postgres -D /usr/local/var/postgres
 app: bundle exec rackup -p 4567

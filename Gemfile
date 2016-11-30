@@ -4,6 +4,11 @@ gem 'rack'
 gem 'sinatra'
 gem 'nokogiri'
 
+gem 'pg'
+gem 'activerecord'
+gem 'sinatra-activerecord'
+gem 'rake'
+
 group :test do
   gem 'rspec'
   gem 'rack-test'
