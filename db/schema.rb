@@ -16,14 +16,12 @@ ActiveRecord::Schema.define(version: 20161130220955) do
   enable_extension "plpgsql"
 
   create_table "products", force: :cascade do |t|
-    t.integer  "external_id"
+    t.string   "item_id"
     t.string   "name"
-    t.decimal  "price",       precision: 8, scale: 2
-    t.string   "url"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["external_id"], name: "index_products_on_external_id", unique: true, using: :btree
-    t.index ["url"], name: "index_products_on_url", unique: true, using: :btree
+    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["item_id"], name: "index_products_on_item_id", unique: true, using: :btree
   end
 
 end

@@ -8,7 +8,7 @@
 `bundle install`
 
 ## How to run application
-`bundle exec rackup -p 4567`
+`foreman start` and `http://localhost:4567` open in browser
 
 ## How to run tests
 `rspec`

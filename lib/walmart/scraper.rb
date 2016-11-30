@@ -2,12 +2,11 @@ require 'uri'
 require 'net/http'
 
 require './models/product'
-require './lib/walmart/uri_parser'
-require './lib/walmart/document_parser'
+require './lib/walmart/parser'
 
 module Walmart
   class Scraper
-    attr_reader :uri, :error
+    attr_reader :uri, :error, :product
 
     def initialize(url)
       @uri = URI.parse(url)
@@ -17,15 +16,18 @@ module Walmart
       return false unless valid_host?
 
       response = Net::HTTP.get_response(uri)
-      uri_parser = Walmart::UriParser.new(uri)
-      document_parser = Walmart::DocumentParser.new(response.body)
+      parser = Walmart::Parser.new(response.body)
 
-      product = Product.new(
-        name: document_parser.product_name, price: document_parser.product_price,
-        url: uri.to_s, external_id: uri_parser.external_id
+      @product = Product.new(
+        name: parser.product_name, price: parser.product_price,
+        item_id: parser.product_item_id
       )
 
-      return product.save
+      product.save
+    end
+
+    def error
+      product.errors.full_messages
     end
 
     private
